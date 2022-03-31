@@ -8,11 +8,12 @@ let answerOptions = $("#options");
 let result = $("#result");
 let playButton = $("#play-button");
 let count = 75;
+let questionNumber = 0;
 
 //create an array of objects , each element representing a question to show inside the html document
 // q stands for question , o stands for option and a stands for answer
 //create 2 objects at first to test the working and add other later
-let questionChoices = [
+const questionChoices = [
   {
     q: "Inside the HTML document, where do you place your JavaScript code? ",
     o: [
@@ -38,11 +39,44 @@ let questionChoices = [
 // create time interval of the game
 function quizDuration() {
   var timeinterval = setInterval(function () {
-    timer.innerText = "time remaining : " + count;
+    timer.text("time remaining : " + count);
     count--;
   }, 1000);
 }
+// main working station of the page ///
+
+function startQuiz() {
+  quizContent.children("h1").text("");
+  quizContent.children("h2").text("");
+  quizContent.children("button").remove();
+  getQuestion(questionNumber);
+}
+
+//function to display question
+function getQuestion(number) {
+  question.text(questionChoices[number].q);
+  console.log(questionChoices[number]);
+  // $.each(questionChoices[number].o, function () {
+  //   let answers = $("<button>");
+  //   answers.text(questionChoices[number].o);
+  //   answerOptions.append(answers);
+  // });
+  questionChoices[number].o.forEach((option, index) => {
+    let optionEl = $("<button>");
+    optionEl.text(option);
+    optionEl.on("click", () => checkAnswer(number, index));
+    answerOptions.append(optionEl);
+  });
+}
+
+function checkAnswer(questionIndex, answerIndex) {
+  return true;
+}
 
 // timer to start when the play button is clicked
+// quiz to begin when the play button is clicked
 
-playButton.on("click", quizDuration);
+playButton.on("click", function () {
+  quizDuration();
+  startQuiz();
+});
