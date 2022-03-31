@@ -1,11 +1,13 @@
 // get all the elements from the html page to manipulate using JS
 
-let scoreCard = document.getElementById("scores");
-let timer = document.getElementById("timer");
-let quizContent = document.getElementById("quiz-content");
-let question = document.getElementById("questions");
-let answerOptions = document.getElementById("options");
-let result = document.getElementById("result");
+let scoreCard = $("#scores");
+let timer = $("#timer");
+let quizContent = $("#quiz-content");
+let question = $("#question");
+let answerOptions = $("#options");
+let result = $("#result");
+let playButton = $("#play-button");
+let count = 75;
 
 //create an array of objects , each element representing a question to show inside the html document
 // q stands for question , o stands for option and a stands for answer
@@ -32,3 +34,15 @@ let questionChoices = [
     a: "Equal sign (=)",
   },
 ];
+
+// create time interval of the game
+function quizDuration() {
+  var timeinterval = setInterval(function () {
+    timer.innerText = "time remaining : " + count;
+    count--;
+  }, 1000);
+}
+
+// timer to start when the play button is clicked
+
+playButton.on("click", quizDuration);
