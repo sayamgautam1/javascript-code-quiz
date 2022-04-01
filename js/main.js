@@ -8,7 +8,7 @@ let answerOptionsEl = $("#options");
 let resultEl = $("#result");
 let playButtonEl = $("#play-button");
 let quizSectionEl = $("#questions-options");
-let count = 75;
+
 let questionNumber = 0;
 let correctAnswer = 0;
 
@@ -89,12 +89,37 @@ const questionChoices = [
 ];
 
 // create time interval of the game
-function quizDuration() {
-  var timeinterval = setInterval(function () {
-    timerEl.text("time remaining : " + count);
-    count--;
-  }, 1000);
+function createTimer() {
+  let timerInterval;
+  let count = 75;
+
+  function startTimer() {
+    timerInterval = setInterval(function () {
+      timerEl.text("time remaining : " + count);
+      console.log(timerEl);
+      count--;
+
+      if (count <= 0) {
+        stopTimer();
+      }
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timerInterval);
+  }
+
+  function decreasePenalty() {
+    count -= 10;
+  }
+
+  return {
+    startTimer,
+    stopTimer,
+    decreasePenalty,
+  };
 }
+let timer = createTimer();
 
 // main working station of the page ///
 
@@ -130,11 +155,13 @@ function getQuestion(number) {
 function checkAnswer(questionIndex, answerIndex) {
   let result = $("<p>");
   if (questionChoices[questionIndex].a === answerIndex) {
-    result.text("correct");
+    result.text("Correct");
     correctAnswer++;
   } else {
-    result.text("incorrect");
-    count -= 10;
+    result.text(
+      "Wrong! The correct answer is: " + questionChoices[questionIndex].a
+    );
+    timer.decreasePenalty();
   }
   setTimeout(() => result.text(""), 1000);
   $("#result").append(result);
@@ -151,13 +178,16 @@ function checkAnswer(questionIndex, answerIndex) {
 // fucntion to end quiz and display result
 
 function endquiz() {
-  quizContentEl.children("h1").text(`you scored ${correctAnswer}`);
+  alert("Time's up!!");
+  quizContentEl.children("h1").text(`You scored ${correctAnswer}`);
   quizSectionEl.text("");
+
+  timer.stopTimer();
 }
-// timer to start when the play button is clicked
+// timerInterval to start when the play button is clicked
 // quiz to begin when the play button is clicked
 
 playButtonEl.on("click", function () {
-  quizDuration();
+  timer.startTimer();
   startQuiz();
 });
