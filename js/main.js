@@ -60,17 +60,19 @@ function getQuestion(number) {
   //   let answers = $("<button>");
   //   answers.text(questionChoices[number].o);
   //   answerOptions.append(answers);
-  // });
-  questionChoices[number].o.forEach((option, index) => {
+  // }); understood $ reperesents document
+  questionChoices[number].o.forEach((option) => {
     let optionEl = $("<button>");
     optionEl.text(option);
-    optionEl.on("click", () => checkAnswer(number, index));
     answerOptions.append(optionEl);
+    optionEl.on("click", () => checkAnswer(number, option));
   });
 }
 
 function checkAnswer(questionIndex, answerIndex) {
-  return true;
+  if (questionChoices[questionIndex].a === answerIndex) {
+    result.text("correct");
+  } else result.text("incorrect");
 }
 
 // timer to start when the play button is clicked
