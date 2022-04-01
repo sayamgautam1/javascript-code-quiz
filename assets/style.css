@@ -18,11 +18,13 @@ main {
 }
 
 /* button styles */
-
+#play-button {
+  width: 25%;
+}
 button {
   background: var(--secondary);
   color: var(--white);
-  width: fit-content;
+  width: -webkit-fill-available;
   margin: 1em;
   padding: 10px;
   border-radius: 10px;
@@ -41,4 +43,6 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 50%;
+  margin: 0 auto;
 }
