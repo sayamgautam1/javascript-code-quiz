@@ -95,6 +95,7 @@ function quizDuration() {
     count--;
   }, 1000);
 }
+
 // main working station of the page ///
 
 function startQuiz() {
@@ -125,6 +126,7 @@ function getQuestion(number) {
   });
 }
 
+//fuction to check answer on each clicked option choice
 function checkAnswer(questionIndex, answerIndex) {
   let result = $("<p>");
   if (questionChoices[questionIndex].a === answerIndex) {
@@ -136,6 +138,8 @@ function checkAnswer(questionIndex, answerIndex) {
   }
   setTimeout(() => result.text(""), 1000);
   $("#result").append(result);
+
+  // to disply the next quesiton increase the question index by 1 and call the fucntion again
 
   let nextQuestionNumber = questionIndex + 1;
   if (nextQuestionNumber >= questionChoices.length) {
