@@ -46,6 +46,46 @@ const questionChoices = [
     ],
     a: "string, number, boolean, bigInt, symbol, undefined",
   },
+  {
+    q: "How do we declare a conditional statement in JavaScript?",
+    o: ["for loop", "while loop", "if...else", "difference...between"],
+    a: "if...else",
+  },
+  {
+    q: "From the given array which index is the letter 'b' on? ['a', 'b', 'c', 'd'] ",
+    o: ["1", "3", "2", "0"],
+    a: "1",
+  },
+  {
+    q: "What are the two types of scope JavaScript uses? ",
+    o: [
+      "Global and Local",
+      "Abroad and Local",
+      "Surrounding and Inner",
+      "Outside and Inside",
+    ],
+    a: "Global and Local",
+  },
+  {
+    q: "How do we access a value stored in an object? ",
+    o: [
+      "Equal notation, Abstract notation",
+      "Dot notation, Bracket notation",
+      "Dot notation, Curl bracket notation",
+      "Period notation, Square bracket notation",
+    ],
+    a: "Dot notation, Bracket notation",
+  },
+  {
+    q: "What is an object method? ",
+    o: [
+      "An array saved inside of an object",
+      "A function associated with an object",
+      "Keys in an object that have a number assigned to it",
+      "A function that takes an object for an argument",
+    ],
+    a: "A function associated with an object",
+  },
 ];
 
 // create time interval of the game
