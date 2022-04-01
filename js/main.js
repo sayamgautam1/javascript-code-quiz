@@ -7,8 +7,10 @@ let questionEl = $("#question");
 let answerOptionsEl = $("#options");
 let resultEl = $("#result");
 let playButtonEl = $("#play-button");
+let quizSectionEl = $("#questions-options");
 let count = 75;
 let questionNumber = 0;
+let correctAnswer = 0;
 
 //create an array of objects , each element representing a question to show inside the html document
 // q stands for question , o stands for option and a stands for answer
@@ -34,6 +36,16 @@ const questionChoices = [
     ],
     a: "Equal sign (=)",
   },
+  {
+    q: "What are the six primitive data types in JavaScript? ",
+    o: [
+      "sentence, float, data, bigInt, symbol, undefined",
+      "string, number, boolean, bigInt, symbol, undefined",
+      "string, num, falsy, bigInt, symbol, undefined",
+      "sentence, int, truthy, bigInt, symbol, undefined",
+    ],
+    a: "string, number, boolean, bigInt, symbol, undefined",
+  },
 ];
 
 // create time interval of the game
@@ -50,6 +62,7 @@ function startQuiz() {
   quizContentEl.children("h2").text("");
   quizContentEl.children("button").remove();
   getQuestion(questionNumber);
+  console.log(correctAnswer);
 }
 
 //function to display question
@@ -76,21 +89,27 @@ function checkAnswer(questionIndex, answerIndex) {
   let result = $("<p>");
   if (questionChoices[questionIndex].a === answerIndex) {
     result.text("correct");
+    correctAnswer++;
   } else {
     result.text("incorrect");
-    count - 10;
+    count -= 10;
   }
   setTimeout(() => result.text(""), 1000);
   $("#result").append(result);
 
-  let nextQuestionNumber = questionNumber + 1;
-  if (nextQuestionNumber < questionChoices.length) {
-    getQuestion(nextQuestionNumber);
+  let nextQuestionNumber = questionIndex + 1;
+  if (nextQuestionNumber >= questionChoices.length) {
+    endquiz();
   } else {
-    count = 0;
+    getQuestion(nextQuestionNumber);
   }
 }
+// fucntion to end quiz and display result
 
+function endquiz() {
+  quizContentEl.children("h1").text(`you scored ${correctAnswer}`);
+  quizSectionEl.text("");
+}
 // timer to start when the play button is clicked
 // quiz to begin when the play button is clicked
 
