@@ -1,3 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+  --primary: #ffd1ba;
+  --secondary: #ce7da5;
+  --tertiary: #bee5bf;
+  --white: rgb(255, 255, 255);
+  font-size: 2em;
+}
 header {
   display: flex;
   justify-content: space-between;
@@ -7,9 +17,24 @@ main {
   text-align: center;
 }
 
+/* button styles */
+
 button {
+  background: var(--secondary);
+  color: var(--white);
   width: fit-content;
   margin: 1em;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 3px grey;
+  margin-top: 10px;
+}
+button:hover {
+  background: var(--primary);
+  border-radius: 10px;
+  box-shadow: 0 2px grey;
+  cursor: pointer;
 }
 
 #options {
