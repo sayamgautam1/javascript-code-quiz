@@ -1,6 +1,7 @@
 // get all the elements from the html page to manipulate using JS
 
 let scoreCardEl = $("#scores");
+let scoreCardBtn = $("#scoreCard");
 let timerEl = $("#timer");
 let quizContentEl = $("#quiz-content");
 let questionEl = $("#question");
@@ -11,6 +12,8 @@ let quizSectionEl = $("#questions-options");
 let finalEl = $("#final");
 let finalScoreEl = $("#finalscore");
 let leaderboardEl = $("#highscores");
+let returnBtn = $("#back");
+let clearBtn = $("#clear");
 
 let questionNumber = 0;
 let correctAnswer = 0;
@@ -128,9 +131,8 @@ let timer = createTimer();
 // main working station of the page ///
 
 function startQuiz() {
-  quizContentEl.children("h1").text("");
-  quizContentEl.children("h2").text("");
-  quizContentEl.children("button").remove();
+  quizContentEl.css("display", "none");
+  quizSectionEl.css("display", "block");
 
   getQuestion(questionNumber);
   console.log(correctAnswer);
@@ -188,7 +190,6 @@ function endquiz() {
   quizSectionEl.css("display", "none");
   finalEl.css("display", "block");
   finalScoreEl.text(`You scored :  ${correctAnswer}`);
-  // leaderboardEl.css("display", "block");
 
   timer.stopTimer();
 }
@@ -201,8 +202,34 @@ function createScores() {
   function addScore() {
     localStorage.setItem("scoreList", JSON.stringify(scoreList));
   }
-  function showScore() {}
+  function showScore() {
+    quizContentEl.css("display", "none");
+    quizSectionEl.css("display", "none");
+    finalEl.css("display", "none");
+    leaderboardEl.css("display", "block");
+  }
+  function goBack() {
+    quizContentEl.css("display", "block");
+    leaderboardEl.css("display", "none");
+    console.log("hello");
+  }
+  return {
+    addScore,
+    showScore,
+    goBack,
+  };
 }
+let scoreCard = createScores();
+// event listener to show leaderboard when the button is clicked
+
+scoreCardBtn.on("click", function () {
+  scoreCard.showScore();
+});
+
+// event listen to go back main page when back button is clicked
+returnBtn.on("click", function () {
+  scoreCard.goBack();
+});
 // timerInterval to start when the play button is clicked
 // quiz to begin when the play button is clicked
 
