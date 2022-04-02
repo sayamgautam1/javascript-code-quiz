@@ -14,6 +14,8 @@ let finalScoreEl = $("#finalscore");
 let leaderboardEl = $("#highscores");
 let returnBtn = $("#back");
 let clearBtn = $("#clear");
+let submitScoreBtn = $("#submit-score");
+let initalsEl = $("#initials");
 
 let questionNumber = 0;
 let correctAnswer = 0;
@@ -204,7 +206,13 @@ function createScores() {
   let scoreList = [];
 
   function addScore() {
-    localStorage.setItem("scoreList", JSON.stringify(scoreList));
+    let user = initalsEl.val();
+    let userScore = {
+      initials: user,
+      score: correctAnswer,
+    };
+    scoreList.push(userScore);
+    localStorage.setItem("scorelist", JSON.stringify(scoreList));
   }
   function showScore() {
     quizContentEl.css("display", "none");
@@ -236,6 +244,12 @@ scoreCardBtn.on("click", function () {
 returnBtn.on("click", function () {
   scoreCard.goBack();
 });
+
+// event listener to get the initals input
+submitScoreBtn.on("click", function () {
+  scoreCard.addScore();
+});
+
 // timerInterval to start when the play button is clicked
 // quiz to begin when the play button is clicked
 
