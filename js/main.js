@@ -100,20 +100,23 @@ function createTimer() {
   let count = 75;
 
   function startTimer() {
+    count = 75;
     timerInterval = setInterval(function () {
-      timerEl.text("time remaining : " + count);
+      timerEl.text("⏱️  " + count);
       console.log(timerEl);
       count--;
 
-      if (count <= 0) {
+      if (count < 0) {
+        alert("Time's up!!");
         stopTimer();
+        endquiz();
       }
     }, 1000);
   }
 
   function stopTimer() {
     clearInterval(timerInterval);
-    timerEl.text("");
+    // timerEl.css("display", "none");
   }
 
   function decreasePenalty() {
@@ -177,6 +180,7 @@ function checkAnswer(questionIndex, answerIndex) {
 
   let nextQuestionNumber = questionIndex + 1;
   if (nextQuestionNumber >= questionChoices.length) {
+    alert("End of Questions");
     endquiz();
   } else {
     getQuestion(nextQuestionNumber);
@@ -185,7 +189,7 @@ function checkAnswer(questionIndex, answerIndex) {
 // fucntion to end quiz and display result
 
 function endquiz() {
-  alert("Time's up!!");
+  timerEl.text("⏱️");
 
   quizSectionEl.css("display", "none");
   finalEl.css("display", "block");
@@ -209,6 +213,8 @@ function createScores() {
     leaderboardEl.css("display", "block");
   }
   function goBack() {
+    timerEl.css("display", "block");
+    timerEl.text("⏱️");
     quizContentEl.css("display", "block");
     leaderboardEl.css("display", "none");
     console.log("hello");
