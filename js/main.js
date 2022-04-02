@@ -1,6 +1,6 @@
 // get all the elements from the html page to manipulate using JS
 
-let scoreCardEl = $("#scores");
+let scoreCardEl = $("#leaderboard");
 let scoreCardBtn = $("#scoreCard");
 let timerEl = $("#timer");
 let quizContentEl = $("#quiz-content");
@@ -12,6 +12,7 @@ let quizSectionEl = $("#questions-options");
 let finalEl = $("#final");
 let finalScoreEl = $("#finalscore");
 let leaderboardEl = $("#highscores");
+let highScoreEl = $("#scores");
 let returnBtn = $("#back");
 let clearBtn = $("#clear");
 let submitScoreBtn = $("#submit-score");
@@ -202,10 +203,14 @@ function endquiz() {
 
 // fuction to show leader board , store scores and get scores
 function createScores() {
-  let score;
   let scoreList = [];
 
   function addScore() {
+    if (scoreList === null) {
+      scoreList = [];
+    } else {
+      scoreList = JSON.parse(localStorage.getItem("scorelist"));
+    }
     let user = initalsEl.val();
     let userScore = {
       initials: user,
@@ -219,6 +224,14 @@ function createScores() {
     quizSectionEl.css("display", "none");
     finalEl.css("display", "none");
     leaderboardEl.css("display", "block");
+    let highScores = JSON.parse(localStorage.getItem("scorelist"));
+    console.log(highScores);
+
+    highScores.forEach((hscore) => {
+      let eachScore = $("<li>");
+      eachScore.text(hscore.initials + " : " + hscore.score);
+      highScoreEl.append(eachScore);
+    });
   }
   function goBack() {
     timerEl.css("display", "block");
