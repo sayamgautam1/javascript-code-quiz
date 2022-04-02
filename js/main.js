@@ -113,7 +113,6 @@ function createTimer() {
         alert("Time's up!!");
         stopTimer();
         endquiz();
-        scoreCard.addScore();
       }
     }, 1000);
   }
