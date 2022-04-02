@@ -8,6 +8,7 @@ let answerOptionsEl = $("#options");
 let resultEl = $("#result");
 let playButtonEl = $("#play-button");
 let quizSectionEl = $("#questions-options");
+let leaderboardEl = $("#highscores");
 
 let questionNumber = 0;
 let correctAnswer = 0;
@@ -107,6 +108,7 @@ function createTimer() {
 
   function stopTimer() {
     clearInterval(timerInterval);
+    timerEl.text("");
   }
 
   function decreasePenalty() {
@@ -127,6 +129,7 @@ function startQuiz() {
   quizContentEl.children("h1").text("");
   quizContentEl.children("h2").text("");
   quizContentEl.children("button").remove();
+
   getQuestion(questionNumber);
   console.log(correctAnswer);
 }
@@ -180,9 +183,19 @@ function checkAnswer(questionIndex, answerIndex) {
 function endquiz() {
   alert("Time's up!!");
   quizContentEl.children("h1").text(`You scored ${correctAnswer}`);
-  quizSectionEl.text("");
+  quizSectionEl.css("display", "none");
+  leaderboardEl.css("display", "block");
 
   timer.stopTimer();
+}
+
+// fuction to show leader board
+function showHighScores() {
+  let savedScores = localStorage.getItem("highScore");
+
+  if (savedScores === null) {
+    return;
+  }
 }
 // timerInterval to start when the play button is clicked
 // quiz to begin when the play button is clicked
