@@ -9,19 +9,19 @@
   </head>
   <body>
     <header>
-      <div id="scores"><button>LeaderBoard</button></div>
+      <div id="scores"><button id="scoreCard">LeaderBoard</button></div>
       <div id="timer">Timer</div>
     </header>
-    <main id="quiz-content">
+    <section id="quiz-content" style="display: block">
       <h1>Welcome to JavaScript Code Quiz.</h1>
       <h2>Press Play to begin</h2>
       <button id="play-button" type="button">Play</button>
-      <section id="questions-options">
-        <div id="question"></div>
-        <div id="options"></div>
-        <div id="result"></div>
-      </section>
-    </main>
+    </section>
+    <section id="questions-options" style="display: none">
+      <div id="question"></div>
+      <div id="options"></div>
+      <div id="result"></div>
+    </section>
     <section id="final" style="display: none">
       <h2>Great Job!!</h2>
       <p id="finalscore"></p>
