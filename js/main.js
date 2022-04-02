@@ -113,6 +113,7 @@ function createTimer() {
         alert("Time's up!!");
         stopTimer();
         endquiz();
+        scoreCard.addScore();
       }
     }, 1000);
   }
@@ -137,11 +138,11 @@ let timer = createTimer();
 // main working station of the page ///
 
 function startQuiz() {
+  correctAnswer = 0;
   quizContentEl.css("display", "none");
   quizSectionEl.css("display", "block");
 
   getQuestion(questionNumber);
-  correctAnswer = 0;
 }
 
 //function to display question
@@ -237,6 +238,7 @@ function createScores() {
     // ;
   }
   function goBack() {
+    correctAnswer = 0;
     timerEl.css("display", "block");
     timerEl.text("⏱️");
     quizContentEl.css("display", "block");
@@ -245,6 +247,7 @@ function createScores() {
   }
 
   function clearScores() {
+    correctAnswer = 0;
     localStorage.clear();
     highScoreEl.text("");
   }
