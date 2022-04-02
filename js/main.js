@@ -183,13 +183,13 @@ function checkAnswer(questionIndex, answerIndex) {
 
   let nextQuestionNumber = questionIndex + 1;
   if (nextQuestionNumber >= questionChoices.length) {
-    alert("End of Questions");
     endquiz();
+    // setTimeout(() => alert("End of Questions"), 1000);
   } else {
     getQuestion(nextQuestionNumber);
   }
 }
-// fucntion to end quiz and display result
+// function to end quiz and display result
 
 function endquiz() {
   timerEl.text("⏱️");
@@ -233,6 +233,7 @@ function createScores() {
       eachScore.text(hscore.initials + " : " + hscore.score);
       highScoreEl.append(eachScore);
     });
+    $('input[type="text"').val("");
   }
   function goBack() {
     timerEl.css("display", "block");
