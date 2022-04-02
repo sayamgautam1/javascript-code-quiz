@@ -218,6 +218,7 @@ function createScores() {
     };
     scoreList.push(userScore);
     localStorage.setItem("scorelist", JSON.stringify(scoreList));
+    showScore();
   }
   function showScore() {
     quizContentEl.css("display", "none");
