@@ -2,8 +2,8 @@
   box-sizing: border-box;
 }
 :root {
-  --primary: #ffd1ba;
-  --secondary: #ce7da5;
+  --primary: #23272b;
+  --secondary: #343a40;
   --tertiary: #bee5bf;
   --white: rgb(255, 255, 255);
   font-size: 2em;
@@ -13,7 +13,7 @@ header {
   justify-content: space-between;
 }
 
-main {
+body {
   text-align: center;
 }
 
@@ -21,16 +21,20 @@ main {
 #play-button {
   width: 25%;
 }
+
+/*answer options */
 button {
   background: var(--secondary);
   color: var(--white);
   width: -webkit-fill-available;
+  height: 3.5em;
   margin: 1em;
   padding: 10px;
   border-radius: 10px;
   border: none;
   box-shadow: 0 3px grey;
   margin-top: 10px;
+  font-size: 0.5em;
 }
 button:hover {
   background: var(--primary);
@@ -45,4 +49,11 @@ button:hover {
   align-items: center;
   width: 50%;
   margin: 0 auto;
+}
+
+/*initials submit button */
+#submit-score,
+#back,
+#clear {
+  width: 25%;
 }
