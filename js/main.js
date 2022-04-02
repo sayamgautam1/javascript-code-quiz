@@ -19,11 +19,12 @@ let submitScoreBtn = $("#submit-score");
 let initalsEl = $("#initials");
 
 let questionNumber = 0;
-let correctAnswer = 0;
+let correctAnswerCount = 0;
 
 //create an array of objects , each element representing a question to show inside the html document
-// q stands for question , o stands for option and a stands for answer
-//create 2 objects at first to test the working and add other later
+// -  q stands for question ,
+// - o stands for option and
+// - a stands for answer
 const questionChoices = [
   {
     q: "Inside the HTML document, where do you place your JavaScript code? ",
@@ -97,7 +98,7 @@ const questionChoices = [
   },
 ];
 
-// create time interval of the game
+// Handle countdown and penalty
 function createTimer() {
   let timerInterval;
   let count = 75;
@@ -122,14 +123,14 @@ function createTimer() {
     // timerEl.css("display", "none");
   }
 
-  function decreasePenalty() {
+  function applyPenalty() {
     count -= 10;
   }
 
   return {
     startTimer,
     stopTimer,
-    decreasePenalty,
+    applyPenalty,
   };
 }
 let timer = createTimer();
@@ -137,26 +138,26 @@ let timer = createTimer();
 // main working station of the page ///
 
 function startQuiz() {
-  correctAnswer = 0;
+  correctAnswerCount = 0;
   quizContentEl.css("display", "none");
   quizSectionEl.css("display", "block");
 
   getQuestion(questionNumber);
 }
 
-//function to display question
+// Get the next question and display on page
+// args:
+//   number -> index of the question to display
 function getQuestion(number) {
-  questionEl.text("");
+  const nextQuestion = questionChoices[number];
   answerOptionsEl.text("");
-
-  questionEl.text(questionChoices[number].q);
-  console.log(questionChoices[number]);
+  questionEl.text(nextQuestion.q);
   // $.each(questionChoices[number].o, function () {
   //   let answers = $("<button>");
   //   answers.text(questionChoices[number].o);
   //   answerOptions.append(answers);
   // }); understood $ reperesents document
-  questionChoices[number].o.forEach((option) => {
+  nextQuestion.o.forEach((option) => {
     let optionEl = $("<button>");
     optionEl.text(option);
     answerOptionsEl.append(optionEl);
@@ -169,12 +170,12 @@ function checkAnswer(questionIndex, answerIndex) {
   let result = $("<p>");
   if (questionChoices[questionIndex].a === answerIndex) {
     result.text("Correct");
-    correctAnswer++;
+    correctAnswerCount++;
   } else {
     result.text(
       "Wrong! The correct answer is: " + questionChoices[questionIndex].a
     );
-    timer.decreasePenalty();
+    timer.applyPenalty();
   }
   setTimeout(() => result.text(""), 1000);
   $("#result").append(result);
@@ -184,76 +185,73 @@ function checkAnswer(questionIndex, answerIndex) {
   let nextQuestionNumber = questionIndex + 1;
   if (nextQuestionNumber >= questionChoices.length) {
     endquiz();
-    // setTimeout(() => alert("End of Questions"), 1000);
   } else {
     getQuestion(nextQuestionNumber);
   }
 }
-// function to end quiz and display result
 
+// end quiz and display result
 function endquiz() {
   timerEl.text("⏱️");
 
   quizSectionEl.css("display", "none");
   finalEl.css("display", "block");
-  finalScoreEl.text(`You scored :  ${correctAnswer}`);
+  finalScoreEl.text(`You scored :  ${correctAnswerCount}`);
 
   timer.stopTimer();
 }
 
-// fuction to show leader board , store scores and get scores
-function createScores() {
-  let scoreList = [];
-
-  function addScore() {
-    if (scoreList === null) {
-      scoreList = [];
-    } else {
-      scoreList = JSON.parse(localStorage.getItem("scorelist"));
-    }
-    let user = initalsEl.val();
-    let userScore = {
-      initials: user,
-      score: correctAnswer,
-    };
-    scoreList.push(userScore);
-    localStorage.setItem("scorelist", JSON.stringify(scoreList));
-    showScore();
-  }
-  function showScore() {
-    highScoreEl.text("");
+const quizUI = {
+  hide: function () {
     quizContentEl.css("display", "none");
     quizSectionEl.css("display", "none");
     finalEl.css("display", "none");
-    leaderboardEl.css("display", "block");
-    let highScores = JSON.parse(localStorage.getItem("scorelist"));
-    console.log(highScores);
+  },
 
-    highScores.forEach((hscore) => {
-      let eachScore = $("<li>");
-      eachScore.text(hscore.initials + " : " + hscore.score);
-      highScoreEl.append(eachScore);
-    });
-    // ;
-  }
-  function goBack() {
-    correctAnswer = 0;
+  show: function () {
+    correctAnswerCount = 0;
     timerEl.css("display", "block");
     timerEl.text("⏱️");
     quizContentEl.css("display", "block");
     leaderboardEl.css("display", "none");
     console.log("hello");
+  },
+};
+
+// show leader board, store scores and get scores
+function createScores() {
+  function addScore(initials, score) {
+    let scoreList = [];
+
+    const scoreListLS = localStorage.getItem("scorelist");
+    if (scoreListLS !== null) {
+      scoreList = JSON.parse(scoreListLS);
+    }
+
+    scoreList.push({ initials, score });
+    localStorage.setItem("scorelist", JSON.stringify(scoreList));
+  }
+  function showScore() {
+    quizUI.hide();
+    leaderboardEl.css("display", "block");
+    let highScores = JSON.parse(localStorage.getItem("scorelist"));
+
+    highScoreEl.text("");
+    highScores.forEach((hscore) => {
+      let eachScore = $("<li>");
+      eachScore.text(hscore.initials + " : " + hscore.score);
+      highScoreEl.append(eachScore);
+    });
   }
 
   function clearScores() {
-    correctAnswer = 0;
+    correctAnswerCount = 0;
     localStorage.clear();
     highScoreEl.text("");
   }
   return {
     addScore,
     showScore,
-    goBack,
     clearScores,
   };
 }
@@ -266,12 +264,14 @@ scoreCardBtn.on("click", function () {
 
 // event listen to go back main page when back button is clicked
 returnBtn.on("click", function () {
-  scoreCard.goBack();
+  quizUI.show();
 });
 
 // event listener to get the initals input
 submitScoreBtn.on("click", function () {
-  scoreCard.addScore();
+  let initials = initalsEl.val();
+  scoreCard.addScore(initials, correctAnswerCount);
+  scoreCard.showScore();
 });
 // clear local storage and score when clear button is clicked
 
