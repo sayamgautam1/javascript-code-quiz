@@ -221,6 +221,7 @@ function createScores() {
     showScore();
   }
   function showScore() {
+    highScoreEl.text("");
     quizContentEl.css("display", "none");
     quizSectionEl.css("display", "none");
     finalEl.css("display", "none");
@@ -233,7 +234,7 @@ function createScores() {
       eachScore.text(hscore.initials + " : " + hscore.score);
       highScoreEl.append(eachScore);
     });
-    $('input[type="text"').val("");
+    // ;
   }
   function goBack() {
     timerEl.css("display", "block");
