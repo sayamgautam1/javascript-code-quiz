@@ -139,6 +139,7 @@ let timer = createTimer();
 
 function startQuiz() {
   correctAnswerCount = 0;
+  scoreCardEl.css("display", "none");
   quizContentEl.css("display", "none");
   quizSectionEl.css("display", "block");
 
@@ -203,6 +204,8 @@ function endquiz() {
 
 const quizUI = {
   hide: function () {
+    scoreCardEl.css("display", "none");
+    timerEl.css("display", "none");
     quizContentEl.css("display", "none");
     quizSectionEl.css("display", "none");
     finalEl.css("display", "none");
@@ -210,6 +213,7 @@ const quizUI = {
 
   show: function () {
     correctAnswerCount = 0;
+    scoreCardEl.css("display", "block");
     timerEl.css("display", "block");
     timerEl.text("⏱️");
     quizContentEl.css("display", "block");
