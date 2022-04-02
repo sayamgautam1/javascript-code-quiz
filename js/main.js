@@ -240,10 +240,16 @@ function createScores() {
     leaderboardEl.css("display", "none");
     console.log("hello");
   }
+
+  function clearScores() {
+    localStorage.clear();
+    highScoreEl.text("");
+  }
   return {
     addScore,
     showScore,
     goBack,
+    clearScores,
   };
 }
 let scoreCard = createScores();
@@ -262,7 +268,11 @@ returnBtn.on("click", function () {
 submitScoreBtn.on("click", function () {
   scoreCard.addScore();
 });
+// clear local storage and score when clear button is clicked
 
+clearBtn.on("click", function () {
+  scoreCard.clearScores();
+});
 // timerInterval to start when the play button is clicked
 // quiz to begin when the play button is clicked
 
