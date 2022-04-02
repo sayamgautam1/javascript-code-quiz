@@ -141,7 +141,7 @@ function startQuiz() {
   quizSectionEl.css("display", "block");
 
   getQuestion(questionNumber);
-  console.log(correctAnswer);
+  correctAnswer = 0;
 }
 
 //function to display question
