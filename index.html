@@ -14,7 +14,12 @@
     </header>
     <section id="quiz-content" style="display: block">
       <h1>Welcome to JavaScript Code Quiz.</h1>
-      <h2>Press Play to begin</h2>
+      <p>
+        Try to answer the following code-related questions within the time
+        limit. Correct answers are worth 1 point! Keep in mind that incorrect
+        answers will penalize you 10 seconds of your time period!
+      </p>
+      <h3>Press Play to begin</h3>
       <button id="play-button" type="button">Play</button>
     </section>
     <section id="questions-options" style="display: none">
@@ -23,10 +28,10 @@
       <div id="result"></div>
     </section>
     <section id="final" style="display: none">
-      <h2>Great Job!!</h2>
+      <h2>All Done!!</h2>
       <p id="finalscore"></p>
-      <div>
-        Enter Initals:
+      <div class="initials">
+        <p>Enter Initials:</p>
         <input type="text" placeholder="initials" id="initials" />
         <button id="submit-score">Submit</button>
       </div>
