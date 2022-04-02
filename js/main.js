@@ -8,6 +8,8 @@ let answerOptionsEl = $("#options");
 let resultEl = $("#result");
 let playButtonEl = $("#play-button");
 let quizSectionEl = $("#questions-options");
+let finalEl = $("#final");
+let finalScoreEl = $("#finalscore");
 let leaderboardEl = $("#highscores");
 
 let questionNumber = 0;
@@ -182,20 +184,24 @@ function checkAnswer(questionIndex, answerIndex) {
 
 function endquiz() {
   alert("Time's up!!");
-  quizContentEl.children("h1").text(`You scored ${correctAnswer}`);
+
   quizSectionEl.css("display", "none");
-  leaderboardEl.css("display", "block");
+  finalEl.css("display", "block");
+  finalScoreEl.text(`You scored :  ${correctAnswer}`);
+  // leaderboardEl.css("display", "block");
 
   timer.stopTimer();
 }
 
-// fuction to show leader board
-function showHighScores() {
-  let savedScores = localStorage.getItem("highScore");
+// fuction to show leader board , store scores and get scores
+function createScores() {
+  let score;
+  let scoreList = [];
 
-  if (savedScores === null) {
-    return;
+  function addScore() {
+    localStorage.setItem("scoreList", JSON.stringify(scoreList));
   }
+  function showScore() {}
 }
 // timerInterval to start when the play button is clicked
 // quiz to begin when the play button is clicked
